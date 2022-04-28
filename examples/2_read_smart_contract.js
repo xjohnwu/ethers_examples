@@ -1,8 +1,15 @@
 const { ethers } = require("ethers");
 
-const INFURA_ID = ''
+const dotenv = require('dotenv');
+dotenv.config();
+
+const INFURA_ID = process.env.MAINNET_INFURA_ID
 const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`)
 
+// DAI contract etherscan address: https://etherscan.io/address/0x6B175474E89094C44Da98b954EedeAC495271d0F
+
+const address = '0x6B175474E89094C44Da98b954EedeAC495271d0F' // DAI Contract
+// Contract ABI is a big json string, or can be simplified as below by providing the ERC20 contract interface
 const ERC20_ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
@@ -10,7 +17,6 @@ const ERC20_ABI = [
     "function balanceOf(address) view returns (uint)",
 ];
 
-const address = '0x6B175474E89094C44Da98b954EedeAC495271d0F' // DAI Contract
 const contract = new ethers.Contract(address, ERC20_ABI, provider)
 
 const main = async () => {
